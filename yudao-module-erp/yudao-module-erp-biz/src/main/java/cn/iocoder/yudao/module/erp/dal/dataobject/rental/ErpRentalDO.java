@@ -11,21 +11,21 @@ import lombok.*;
 import java.math.BigDecimal;
 
 /**
- * ERP 租赁设备 DO
+ * ERP 租赁库存 DO
  *
  * @author 于立洋
  * @version 1.0
  * @since 2025/1/18
  **/
-@TableName("erp_rental_device")
-@KeySequence("erp_rental_device_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@TableName("erp_rental")
+@KeySequence("erp_rental_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErpRentalDeviceDO extends BaseDO {
+public class ErpRentalDO extends BaseDO {
 
     /**
      * 编号

@@ -5,7 +5,6 @@ import cn.iocoder.yudao.module.erp.dal.dataobject.product.ErpProductDO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.sale.ErpCustomerDO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.stock.ErpStockInDO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.stock.ErpStockInItemDO;
-import cn.iocoder.yudao.module.erp.dal.dataobject.stock.ErpWarehouseDO;
 import cn.iocoder.yudao.module.erp.enums.stock.ErpStockRecordBizTypeEnum;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -15,21 +14,21 @@ import lombok.*;
 import java.math.BigDecimal;
 
 /**
- * ERP 租赁设备明细 DO
+ * ERP 租赁库存明细 DO
  *
  * @author 于立洋
  * @version 1.0
  * @since 2025/1/18
  **/
-@TableName("erp_rental_device_record")
-@KeySequence("erp_rental_device_record_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@TableName("erp_rental_record")
+@KeySequence("erp_rental_record_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErpRentalDeviceRecordDO extends BaseDO {
+public class ErpRentalRecordDO extends BaseDO {
 
     /**
      * 编号

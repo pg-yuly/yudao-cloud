@@ -169,7 +169,11 @@ public interface ErrorCodeConstants {
     ErrorCode FINANCE_RECEIPT_NO_EXISTS = new ErrorCode(1_030_602_004, "生成收款单号失败，请重新提交");
     ErrorCode FINANCE_RECEIPT_UPDATE_FAIL_APPROVE = new ErrorCode(1_030_602_005, "收款单({})已审核，无法修改");
 
-    // ========== ERP 问题收集 1_030_700_000 ==========
-    ErrorCode ISSUE_NOT_EXISTS = new ErrorCode(1_030_700_000, "问题不存在");
-    ErrorCode ISSUE_UPDATE_ISSUE_STATUS_FAIL = new ErrorCode(1_030_700_001, "更新问题状态失败，原因：已经是该状态，无需更新");
+    // ========== ERP 租赁库存 1-030-700-000 ==========
+    ErrorCode RENTAL_STOCK_COUNT_NEGATIVE = new ErrorCode(1_030_700_000, "操作失败，产品({})所在客户({})的库存：{}，小于变更数量：{}");
+    ErrorCode RENTAL_STOCK_COUNT_NEGATIVE2 = new ErrorCode(1_030_700_001, "操作失败，产品({})所在客户({})的库存不足");
+
+    // ========== ERP 问题收集 1_030_800_000 ==========
+    ErrorCode ISSUE_NOT_EXISTS = new ErrorCode(1_030_800_000, "问题不存在");
+    ErrorCode ISSUE_UPDATE_ISSUE_STATUS_FAIL = new ErrorCode(1_030_800_001, "更新问题状态失败，原因：已经是该状态，无需更新");
 }
