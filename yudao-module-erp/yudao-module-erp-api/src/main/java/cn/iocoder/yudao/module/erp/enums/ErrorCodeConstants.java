@@ -181,6 +181,14 @@ public interface ErrorCodeConstants {
     ErrorCode RENTAL_MOVE_NO_EXISTS = new ErrorCode(1_030_701_004, "生成调拨号失败，请重新提交");
     ErrorCode RENTAL_MOVE_UPDATE_FAIL_APPROVE = new ErrorCode(1_030_701_005, "设备调拨单({})已审核，无法修改");
 
+    // ========== ERP 租赁交接单 1-030-702-000 ==========
+    ErrorCode RENTAL_HANDOVER_NOT_EXISTS = new ErrorCode(1_030_702_000, "设备交接单不存在");
+    ErrorCode RENTAL_HANDOVER_DELETE_FAIL_APPROVE = new ErrorCode(1_030_702_001, "设备交接单({})已审核，无法删除");
+    ErrorCode RENTAL_HANDOVER_PROCESS_FAIL = new ErrorCode(1_030_702_002, "反审核失败，只有已审核的交接单才能反审核");
+    ErrorCode RENTAL_HANDOVER_APPROVE_FAIL = new ErrorCode(1_030_702_003, "审核失败，只有未审核的交接单才能审核");
+    ErrorCode RENTAL_HANDOVER_NO_EXISTS = new ErrorCode(1_030_702_004, "生成交接单失败，请重新提交");
+    ErrorCode RENTAL_HANDOVER_UPDATE_FAIL_APPROVE = new ErrorCode(1_030_702_005, "设备交接单({})已审核，无法修改");
+
     // ========== ERP 问题收集 1_030_800_000 ==========
     ErrorCode ISSUE_NOT_EXISTS = new ErrorCode(1_030_800_000, "问题不存在");
     ErrorCode ISSUE_UPDATE_ISSUE_STATUS_FAIL = new ErrorCode(1_030_800_001, "更新问题状态失败，原因：已经是该状态，无需更新");

@@ -82,6 +82,11 @@ public class ErpNoRedisDAO {
      */
     public static final String RENTAL_MOVE_NO_PREFIX = "ZLDB";
 
+    /**
+     * 租赁交接 {@link cn.iocoder.yudao.module.erp.dal.dataobject.rental.ErpRentalHandoverDO}
+     */
+    public static final String RENTAL_HANDOVER_NO_PREFIX = "ZLJJ";
+
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 
