@@ -170,8 +170,16 @@ public interface ErrorCodeConstants {
     ErrorCode FINANCE_RECEIPT_UPDATE_FAIL_APPROVE = new ErrorCode(1_030_602_005, "收款单({})已审核，无法修改");
 
     // ========== ERP 租赁库存 1-030-700-000 ==========
-    ErrorCode RENTAL_STOCK_COUNT_NEGATIVE = new ErrorCode(1_030_700_000, "操作失败，产品({})所在客户({})的库存：{}，小于变更数量：{}");
-    ErrorCode RENTAL_STOCK_COUNT_NEGATIVE2 = new ErrorCode(1_030_700_001, "操作失败，产品({})所在客户({})的库存不足");
+    ErrorCode RENTAL_STOCK_COUNT_NEGATIVE = new ErrorCode(1_030_700_000, "操作失败，设备({})所在客户({})的库存：{}，小于变更数量：{}");
+    ErrorCode RENTAL_STOCK_COUNT_NEGATIVE2 = new ErrorCode(1_030_700_001, "操作失败，设备({})所在客户({})的库存不足");
+
+    // ========== ERP 租赁调拨单 1-030-701-000 ==========
+    ErrorCode RENTAL_MOVE_NOT_EXISTS = new ErrorCode(1_030_701_000, "设备调拨单不存在");
+    ErrorCode RENTAL_MOVE_DELETE_FAIL_APPROVE = new ErrorCode(1_030_701_001, "设备调拨单({})已审核，无法删除");
+    ErrorCode RENTAL_MOVE_PROCESS_FAIL = new ErrorCode(1_030_701_002, "反审核失败，只有已审核的调拨单才能反审核");
+    ErrorCode RENTAL_MOVE_APPROVE_FAIL = new ErrorCode(1_030_701_003, "审核失败，只有未审核的调拨单才能审核");
+    ErrorCode RENTAL_MOVE_NO_EXISTS = new ErrorCode(1_030_701_004, "生成调拨号失败，请重新提交");
+    ErrorCode RENTAL_MOVE_UPDATE_FAIL_APPROVE = new ErrorCode(1_030_701_005, "设备调拨单({})已审核，无法修改");
 
     // ========== ERP 问题收集 1_030_800_000 ==========
     ErrorCode ISSUE_NOT_EXISTS = new ErrorCode(1_030_800_000, "问题不存在");

@@ -77,6 +77,11 @@ public class ErpNoRedisDAO {
      */
     public static final String FINANCE_RECEIPT_NO_PREFIX = "SKD";
 
+    /**
+     * 租赁调拨 {@link cn.iocoder.yudao.module.erp.dal.dataobject.rental.ErpRentalMoveDO}
+     */
+    public static final String RENTAL_MOVE_NO_PREFIX = "ZLDB";
+
     @Resource
     private StringRedisTemplate stringRedisTemplate;
 

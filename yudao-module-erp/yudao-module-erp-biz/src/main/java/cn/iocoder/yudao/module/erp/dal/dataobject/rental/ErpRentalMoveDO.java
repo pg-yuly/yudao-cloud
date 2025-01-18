@@ -10,21 +10,21 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
- * ERP 设备调拨单 DO
+ * ERP 租赁调拨单 DO
  *
  * @author 于立洋
  * @version 1.0
  * @since 2025/1/18
  **/
-@TableName("erp_device_move")
-@KeySequence("erp_device_move_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
+@TableName("erp_rental_move")
+@KeySequence("erp_rental_move_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ErpDeviceMoveDO extends BaseDO {
+public class ErpRentalMoveDO extends BaseDO {
 
     /**
      * 调拨编号

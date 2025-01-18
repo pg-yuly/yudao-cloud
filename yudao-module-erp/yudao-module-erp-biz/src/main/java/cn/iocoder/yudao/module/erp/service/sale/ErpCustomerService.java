@@ -4,6 +4,7 @@ import cn.iocoder.yudao.framework.common.pojo.PageResult;
 import cn.iocoder.yudao.module.erp.controller.admin.sale.vo.customer.ErpCustomerPageReqVO;
 import cn.iocoder.yudao.module.erp.controller.admin.sale.vo.customer.ErpCustomerSaveReqVO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.sale.ErpCustomerDO;
+import cn.iocoder.yudao.module.erp.dal.dataobject.stock.ErpWarehouseDO;
 import jakarta.validation.Valid;
 
 import java.util.Collection;
@@ -91,4 +92,11 @@ public interface ErpCustomerService {
      */
     List<ErpCustomerDO> getCustomerListByStatus(Integer status);
 
+    /**
+     * 校验客户列表的有效性
+     *
+     * @param ids 编号数组
+     * @return 客户列表
+     */
+    List<ErpCustomerDO> validCustomerList(Collection<Long> ids);
 }
