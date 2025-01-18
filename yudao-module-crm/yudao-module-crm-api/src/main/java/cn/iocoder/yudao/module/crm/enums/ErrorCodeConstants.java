@@ -105,4 +105,8 @@ public interface ErrorCodeConstants {
 
     // ========== 数据统计 1_020_014_000 ==========
 
+
+    // ========== 问题收集 1_020_015_000 ==========
+    ErrorCode ISSUE_NOT_EXISTS = new ErrorCode(1_020_015_000, "问题不存在");
+    ErrorCode ISSUE_UPDATE_ISSUE_STATUS_FAIL = new ErrorCode(1_020_015_001, "更新问题状态失败，原因：已经是该状态，无需更新");
 }

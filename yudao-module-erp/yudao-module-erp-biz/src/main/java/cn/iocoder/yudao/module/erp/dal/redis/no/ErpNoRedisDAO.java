@@ -50,6 +50,10 @@ public class ErpNoRedisDAO {
      * 销售退货 {@link cn.iocoder.yudao.module.erp.dal.dataobject.sale.ErpSaleReturnDO}
      */
     public static final String SALE_RETURN_NO_PREFIX = "XSTH";
+    /**
+     * 销售合同 {@link cn.iocoder.yudao.module.erp.dal.dataobject.sale.ErpContractDO}
+     */
+    public static final String SALE_CONTRACT_NO_PREFIX = "HT";
 
     /**
      * 采购订单 {@link cn.iocoder.yudao.module.erp.dal.dataobject.purchase.ErpPurchaseOrderDO}

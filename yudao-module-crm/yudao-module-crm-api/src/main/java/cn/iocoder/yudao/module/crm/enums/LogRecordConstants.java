@@ -160,4 +160,15 @@ public interface LogRecordConstants {
     String CRM_RECEIVABLE_PLAN_DELETE_SUB_TYPE = "删除回款计划";
     String CRM_RECEIVABLE_PLAN_DELETE_SUCCESS = "删除了合同【{getContractById{#receivablePlan.contractId}}】的第【{{#receivablePlan.period}}】期回款计划";
 
+    // ======================= CRM_ISSUE 问题 =======================
+
+    String CRM_ISSUE_TYPE = "CRM 问题";
+    String CRM_ISSUE_CREATE_SUB_TYPE = "创建问题";
+    String CRM_ISSUE_CREATE_SUCCESS = "创建了问题{{#issue.name}}";
+    String CRM_ISSUE_UPDATE_SUB_TYPE = "更新问题";
+    String CRM_ISSUE_UPDATE_SUCCESS = "更新了问题【{{#issueName}}】: {_DIFF{#updateReqVO}}";
+    String CRM_ISSUE_DELETE_SUB_TYPE = "删除问题";
+    String CRM_ISSUE_DELETE_SUCCESS = "删除了问题【{{#issueName}}】";
+    String CRM_ISSUE_UPDATE_ISSUE_STATUS_SUB_TYPE = "更新问题状态";
+    String CRM_ISSUE_UPDATE_ISSUE_STATUS_SUCCESS = "更新了问题【{{#issueName}}】的状态为【{{#issueStatus ? '已解决' : '未解决'}}】";
 }
