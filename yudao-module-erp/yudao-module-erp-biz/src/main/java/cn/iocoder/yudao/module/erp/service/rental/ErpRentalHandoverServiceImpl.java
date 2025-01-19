@@ -133,13 +133,10 @@ public class ErpRentalHandoverServiceImpl implements ErpRentalHandoverService {
 
         // 3. 变更库存
         List<ErpRentalHandoverItemDO> rentalHandoverItems = rentalHandoverItemMapper.selectListByOutId(id);
-        Integer fromBizType = approve ? ErpRentalRecordBizTypeEnum.OTHER_OUT.getType()
-                : ErpRentalRecordBizTypeEnum.OTHER_OUT_CANCEL.getType();
-
-        Integer toBizType = approve ? ErpRentalRecordBizTypeEnum.MOVE_IN.getType()
-                : ErpRentalRecordBizTypeEnum.MOVE_IN_CANCEL.getType();
-
-
+        Integer fromBizType = approve ? ErpStockRecordBizTypeEnum.HANDOVER_OUT.getType()
+                : ErpStockRecordBizTypeEnum.HANDOVER_OUT_CANCEL.getType();
+        Integer toBizType = approve ? ErpRentalRecordBizTypeEnum.HANDOVER_IN.getType()
+                : ErpRentalRecordBizTypeEnum.HANDOVER_IN_CANCEL.getType();
         rentalHandoverItems.forEach(rentalHandoverItem -> {
             BigDecimal fromCount = approve ? rentalHandoverItem.getCount().negate() : rentalHandoverItem.getCount();
             BigDecimal toCount = approve ? rentalHandoverItem.getCount() : rentalHandoverItem.getCount().negate();
