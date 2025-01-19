@@ -2,6 +2,7 @@ package cn.iocoder.yudao.module.erp.dal.dataobject.rental;
 
 import cn.iocoder.yudao.framework.mybatis.core.dataobject.BaseDO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.product.ErpProductDO;
+import cn.iocoder.yudao.module.erp.dal.dataobject.sale.ErpCustomerDO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.stock.ErpWarehouseDO;
 import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -44,6 +45,12 @@ public class ErpRentalHandoverItemDO extends BaseDO {
      * 关联 {@link ErpWarehouseDO#getId()}
      */
     private Long warehouseId;
+    /**
+     * 客户编号
+     * <p>
+     * 关联 {@link ErpCustomerDO#getId()}
+     */
+    private Long customerId;
     /**
      * 产品编号
      * <p>

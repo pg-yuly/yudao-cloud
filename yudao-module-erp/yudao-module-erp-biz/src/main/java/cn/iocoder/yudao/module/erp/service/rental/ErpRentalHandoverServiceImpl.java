@@ -13,11 +13,13 @@ import cn.iocoder.yudao.module.erp.dal.mysql.rental.ErpRentalHandoverItemMapper;
 import cn.iocoder.yudao.module.erp.dal.mysql.rental.ErpRentalHandoverMapper;
 import cn.iocoder.yudao.module.erp.dal.redis.no.ErpNoRedisDAO;
 import cn.iocoder.yudao.module.erp.enums.ErpAuditStatus;
+import cn.iocoder.yudao.module.erp.enums.rental.ErpRentalRecordBizTypeEnum;
 import cn.iocoder.yudao.module.erp.enums.stock.ErpStockRecordBizTypeEnum;
 import cn.iocoder.yudao.module.erp.service.product.ErpProductService;
 import cn.iocoder.yudao.module.erp.service.sale.ErpCustomerService;
 import cn.iocoder.yudao.module.erp.service.stock.ErpStockRecordService;
 import cn.iocoder.yudao.module.erp.service.stock.ErpWarehouseService;
+import cn.iocoder.yudao.module.erp.service.stock.bo.ErpRentalRecordCreateReqBO;
 import cn.iocoder.yudao.module.erp.service.stock.bo.ErpStockRecordCreateReqBO;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
@@ -61,6 +63,8 @@ public class ErpRentalHandoverServiceImpl implements ErpRentalHandoverService {
     private ErpCustomerService customerService;
     @Resource
     private ErpStockRecordService stockRecordService;
+    @Resource
+    private ErpRentalRecordService rentalRecordService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -129,15 +133,22 @@ public class ErpRentalHandoverServiceImpl implements ErpRentalHandoverService {
 
         // 3. 变更库存
         List<ErpRentalHandoverItemDO> rentalHandoverItems = rentalHandoverItemMapper.selectListByOutId(id);
-        Integer bizType = approve ? ErpStockRecordBizTypeEnum.OTHER_OUT.getType()
-                : ErpStockRecordBizTypeEnum.OTHER_OUT_CANCEL.getType();
+        Integer fromBizType = approve ? ErpRentalRecordBizTypeEnum.OTHER_OUT.getType()
+                : ErpRentalRecordBizTypeEnum.OTHER_OUT_CANCEL.getType();
+
+        Integer toBizType = approve ? ErpRentalRecordBizTypeEnum.MOVE_IN.getType()
+                : ErpRentalRecordBizTypeEnum.MOVE_IN_CANCEL.getType();
 
 
         rentalHandoverItems.forEach(rentalHandoverItem -> {
-            BigDecimal count = approve ? rentalHandoverItem.getCount().negate() : rentalHandoverItem.getCount();
+            BigDecimal fromCount = approve ? rentalHandoverItem.getCount().negate() : rentalHandoverItem.getCount();
+            BigDecimal toCount = approve ? rentalHandoverItem.getCount() : rentalHandoverItem.getCount().negate();
             stockRecordService.createStockRecord(new ErpStockRecordCreateReqBO(
-                    rentalHandoverItem.getProductId(), rentalHandoverItem.getWarehouseId(), count,
-                    bizType, rentalHandoverItem.getHandoverId(), rentalHandoverItem.getId(), rentalHandover.getNo()));
+                    rentalHandoverItem.getProductId(), rentalHandoverItem.getWarehouseId(), fromCount,
+                    fromBizType, rentalHandoverItem.getHandoverId(), rentalHandoverItem.getId(), rentalHandover.getNo()));
+            rentalRecordService.createRentalRecord(new ErpRentalRecordCreateReqBO(
+                    rentalHandoverItem.getProductId(), rentalHandoverItem.getCustomerId(), toCount,
+                    toBizType, rentalHandoverItem.getHandoverId(), rentalHandoverItem.getId(), rentalHandover.getNo()));
         });
     }
 

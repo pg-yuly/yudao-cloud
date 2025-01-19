@@ -13,11 +13,10 @@ import cn.iocoder.yudao.module.erp.dal.mysql.rental.ErpRentalMoveItemMapper;
 import cn.iocoder.yudao.module.erp.dal.mysql.rental.ErpRentalMoveMapper;
 import cn.iocoder.yudao.module.erp.dal.redis.no.ErpNoRedisDAO;
 import cn.iocoder.yudao.module.erp.enums.ErpAuditStatus;
-import cn.iocoder.yudao.module.erp.enums.stock.ErpStockRecordBizTypeEnum;
+import cn.iocoder.yudao.module.erp.enums.rental.ErpRentalRecordBizTypeEnum;
 import cn.iocoder.yudao.module.erp.service.product.ErpProductService;
 import cn.iocoder.yudao.module.erp.service.sale.ErpCustomerService;
-import cn.iocoder.yudao.module.erp.service.stock.ErpStockRecordService;
-import cn.iocoder.yudao.module.erp.service.stock.bo.ErpStockRecordCreateReqBO;
+import cn.iocoder.yudao.module.erp.service.stock.bo.ErpRentalRecordCreateReqBO;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -59,7 +58,7 @@ public class ErpRentalMoveServiceImpl implements ErpRentalMoveService {
     @Resource
     private ErpCustomerService customerService;
     @Resource
-    private ErpStockRecordService stockRecordService;
+    private ErpRentalRecordService rentalRecordService;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -124,17 +123,17 @@ public class ErpRentalMoveServiceImpl implements ErpRentalMoveService {
 
         // 3. 变更库存
         List<ErpRentalMoveItemDO> rentalMoveItems = rentalMoveItemMapper.selectListByMoveId(id);
-        Integer fromBizType = approve ? ErpStockRecordBizTypeEnum.MOVE_OUT.getType()
-                : ErpStockRecordBizTypeEnum.MOVE_OUT_CANCEL.getType();
-        Integer toBizType = approve ? ErpStockRecordBizTypeEnum.MOVE_IN.getType()
-                : ErpStockRecordBizTypeEnum.MOVE_IN_CANCEL.getType();
+        Integer fromBizType = approve ? ErpRentalRecordBizTypeEnum.MOVE_OUT.getType()
+                : ErpRentalRecordBizTypeEnum.MOVE_OUT_CANCEL.getType();
+        Integer toBizType = approve ? ErpRentalRecordBizTypeEnum.MOVE_IN.getType()
+                : ErpRentalRecordBizTypeEnum.MOVE_IN_CANCEL.getType();
         rentalMoveItems.forEach(rentalMoveItem -> {
             BigDecimal fromCount = approve ? rentalMoveItem.getCount().negate() : rentalMoveItem.getCount();
             BigDecimal toCount = approve ? rentalMoveItem.getCount() : rentalMoveItem.getCount().negate();
-            stockRecordService.createStockRecord(new ErpStockRecordCreateReqBO(
+            rentalRecordService.createRentalRecord(new ErpRentalRecordCreateReqBO(
                     rentalMoveItem.getProductId(), rentalMoveItem.getFromCustomerId(), fromCount,
                     fromBizType, rentalMoveItem.getMoveId(), rentalMoveItem.getId(), rentalMove.getNo()));
-            stockRecordService.createStockRecord(new ErpStockRecordCreateReqBO(
+            rentalRecordService.createRentalRecord(new ErpRentalRecordCreateReqBO(
                     rentalMoveItem.getProductId(), rentalMoveItem.getToCustomerId(), toCount,
                     toBizType, rentalMoveItem.getMoveId(), rentalMoveItem.getId(), rentalMove.getNo()));
         });
