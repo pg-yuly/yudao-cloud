@@ -86,7 +86,10 @@ public class ErpRentalHandoverServiceImpl implements ErpRentalHandoverService {
                 .setTotalPrice(getSumValue(rentalHandoverItems, ErpRentalHandoverItemDO::getTotalPrice, BigDecimal::add, BigDecimal.ZERO)));
         rentalHandoverMapper.insert(rentalHandover);
         // 2.2 插入出库单项
-        rentalHandoverItems.forEach(o -> o.setHandoverId(rentalHandover.getId()));
+        rentalHandoverItems.forEach(o -> {
+            o.setHandoverId(rentalHandover.getId());
+            o.setCustomerId(rentalHandover.getCustomerId());
+        });
         rentalHandoverItemMapper.insertBatch(rentalHandoverItems);
         return rentalHandover.getId();
     }

@@ -54,9 +54,6 @@ public class ErpIssueRespVO {
     @Schema(description = "负责人名字", example = "25682")
     @ExcelProperty("负责人名字")
     private String ownerUserName;
-    @Schema(description = "负责人部门")
-    @ExcelProperty("负责人部门")
-    private String ownerUserDeptName;
 
     @Schema(description = "创建时间", requiredMode = Schema.RequiredMode.REQUIRED)
     @ExcelProperty("创建时间")

@@ -3,6 +3,8 @@ package cn.iocoder.yudao.module.erp.controller.admin.sale;
 import cn.hutool.core.collection.CollUtil;
 import cn.iocoder.yudao.framework.common.pojo.CommonResult;
 import cn.iocoder.yudao.framework.common.pojo.PageResult;
+import cn.iocoder.yudao.framework.common.util.collection.MapUtils;
+import cn.iocoder.yudao.framework.common.util.number.NumberUtils;
 import cn.iocoder.yudao.framework.common.util.object.BeanUtils;
 import cn.iocoder.yudao.module.erp.controller.admin.sale.vo.contract.ErpContractPageReqVO;
 import cn.iocoder.yudao.module.erp.controller.admin.sale.vo.contract.ErpContractRespVO;
@@ -11,6 +13,8 @@ import cn.iocoder.yudao.module.erp.dal.dataobject.sale.ErpContractDO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.sale.ErpCustomerDO;
 import cn.iocoder.yudao.module.erp.service.sale.ErpContractService;
 import cn.iocoder.yudao.module.erp.service.sale.ErpCustomerService;
+import cn.iocoder.yudao.module.system.api.user.AdminUserApi;
+import cn.iocoder.yudao.module.system.api.user.dto.AdminUserRespDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,6 +27,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static cn.iocoder.yudao.framework.common.pojo.CommonResult.success;
 import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.*;
@@ -46,6 +51,8 @@ public class ErpContractController {
     private ErpContractService contractService;
     @Resource
     private ErpCustomerService customerService;
+    @Resource
+    private AdminUserApi adminUserApi;
 
     @PostMapping("/create")
     @Operation(summary = "创建合同")
@@ -103,11 +110,18 @@ public class ErpContractController {
         // 1.1 获取客户列表
         Map<Long, ErpCustomerDO> customerMap = customerService.getCustomerMap(
                 convertSet(contractList, ErpContractDO::getCustomerId));
+        // 1.2 获取创建人、签约人列表
+        Map<Long, AdminUserRespDTO> userMap = adminUserApi.getUserMap(convertSetByFlatMap(contractList,
+                contact -> Stream.of(NumberUtils.parseLong(contact.getCreator()), contact.getSignUserId())));
 
         // 2. 拼接数据
         return BeanUtils.toBean(contractList, ErpContractRespVO.class, contractVO -> {
             // 2.1 设置客户信息
             findAndThen(customerMap, contractVO.getCustomerId(), customer -> contractVO.setCustomerName(customer.getName()));
+            // 2.2 设置创建人、签约人名称
+            MapUtils.findAndThen(userMap, NumberUtils.parseLong(contractVO.getCreator()),
+                    user -> contractVO.setCreatorName(user.getNickname()));
+            MapUtils.findAndThen(userMap, contractVO.getSignUserId(), user -> contractVO.setSignUserName(user.getNickname()));
         });
     }
 }

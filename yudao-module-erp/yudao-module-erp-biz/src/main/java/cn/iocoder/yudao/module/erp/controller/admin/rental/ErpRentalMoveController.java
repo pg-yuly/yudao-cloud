@@ -15,7 +15,6 @@ import cn.iocoder.yudao.module.erp.controller.admin.rental.vo.move.ErpRentalMove
 import cn.iocoder.yudao.module.erp.dal.dataobject.rental.ErpRentalDO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.rental.ErpRentalMoveDO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.rental.ErpRentalMoveItemDO;
-import cn.iocoder.yudao.module.erp.dal.dataobject.stock.ErpStockDO;
 import cn.iocoder.yudao.module.erp.service.product.ErpProductService;
 import cn.iocoder.yudao.module.erp.service.rental.ErpRentalMoveService;
 import cn.iocoder.yudao.module.erp.service.rental.ErpRentalService;
@@ -43,7 +42,7 @@ import static cn.iocoder.yudao.framework.common.util.collection.CollectionUtils.
 
 @Tag(name = "管理后台 - ERP 租赁调拨单")
 @RestController
-@RequestMapping("/erp/stock-move")
+@RequestMapping("/erp/rental-move")
 @Validated
 public class ErpRentalMoveController {
 

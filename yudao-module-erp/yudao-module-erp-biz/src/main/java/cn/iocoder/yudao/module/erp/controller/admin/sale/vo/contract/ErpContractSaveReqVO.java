@@ -32,11 +32,6 @@ public class ErpContractSaveReqVO {
     @NotNull(message = "客户编号不能为空")
     private Long customerId;
 
-    @Schema(description = "下单日期", requiredMode = Schema.RequiredMode.REQUIRED)
-    @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
-    @NotNull(message = "下单日期不能为空")
-    private LocalDateTime orderDate;
-
     @Schema(description = "开始时间")
     @DateTimeFormat(pattern = FORMAT_YEAR_MONTH_DAY_HOUR_MINUTE_SECOND)
     private LocalDateTime startTime;

@@ -43,7 +43,7 @@ public class ErpContractServiceImpl implements ErpContractService{
         // 1.1 校验关联字段
         validateRelationDataExists(createReqVO);
         // 1.2 生成合同号，并校验唯一性
-        String no = noRedisDAO.generate(ErpNoRedisDAO.SALE_ORDER_NO_PREFIX);
+        String no = noRedisDAO.generate(ErpNoRedisDAO.SALE_CONTRACT_NO_PREFIX);
         if (contractMapper.selectByNo(no) != null) {
             throw exception(CONTRACT_NO_EXISTS);
         }

@@ -13,8 +13,6 @@ import cn.iocoder.yudao.module.erp.dal.dataobject.operation.ErpIssueDO;
 import cn.iocoder.yudao.module.erp.dal.dataobject.sale.ErpCustomerDO;
 import cn.iocoder.yudao.module.erp.service.operation.ErpIssueService;
 import cn.iocoder.yudao.module.erp.service.sale.ErpCustomerService;
-import cn.iocoder.yudao.module.system.api.dept.DeptApi;
-import cn.iocoder.yudao.module.system.api.dept.dto.DeptRespDTO;
 import cn.iocoder.yudao.module.system.api.user.AdminUserApi;
 import cn.iocoder.yudao.module.system.api.user.dto.AdminUserRespDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -47,14 +45,12 @@ import static java.util.Collections.singletonList;
  **/
 @Tag(name = "管理后台 - Erp 问题")
 @RestController
-@RequestMapping("/Erp/issue")
+@RequestMapping("/erp/issue")
 @Validated
 public class ErpIssueController {
 
     @Resource
     private ErpIssueService issueService;
-    @Resource
-    private DeptApi deptApi;
     @Resource
     private AdminUserApi adminUserApi;
     @Resource
@@ -62,7 +58,7 @@ public class ErpIssueController {
 
     @PostMapping("/create")
     @Operation(summary = "创建问题")
-    @PreAuthorize("@ss.hasPermission('Erp:issue:create')")
+    @PreAuthorize("@ss.hasPermission('erp:issue:create')")
     public CommonResult<Long> createIssue(@Valid @RequestBody ErpIssueSaveReqVO createReqVO) {
         return success(issueService.createIssue(createReqVO, getLoginUserId()));
     }
@@ -137,7 +133,6 @@ public class ErpIssueController {
         // 1.2 获取创建人、负责人列表
         Map<Long, AdminUserRespDTO> userMap = adminUserApi.getUserMap(convertSetByFlatMap(issueList,
                 contact -> Stream.of(NumberUtils.parseLong(contact.getCreator()), contact.getOwnerUserId())));
-        Map<Long, DeptRespDTO> deptMap = deptApi.getDeptMap(convertSet(userMap.values(), AdminUserRespDTO::getDeptId));
 
         // 2. 转换成 VO
         return BeanUtils.toBean(issueList, ErpIssueRespVO.class, issueVO -> {
@@ -146,10 +141,7 @@ public class ErpIssueController {
             // 2.2 设置创建人、负责人名称
             MapUtils.findAndThen(userMap, NumberUtils.parseLong(issueVO.getCreator()),
                     user -> issueVO.setCreatorName(user.getNickname()));
-            MapUtils.findAndThen(userMap, issueVO.getOwnerUserId(), user -> {
-                issueVO.setOwnerUserName(user.getNickname());
-                MapUtils.findAndThen(deptMap, user.getDeptId(), dept -> issueVO.setOwnerUserDeptName(dept.getName()));
-            });
+            MapUtils.findAndThen(userMap, issueVO.getOwnerUserId(), user -> issueVO.setOwnerUserName(user.getNickname()));
         });
     }
 }

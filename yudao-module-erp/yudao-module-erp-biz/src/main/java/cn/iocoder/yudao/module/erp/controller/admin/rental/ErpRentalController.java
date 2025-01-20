@@ -91,7 +91,7 @@ public class ErpRentalController {
         pageReqVO.setPageSize(PageParam.PAGE_SIZE_NONE);
         List<ErpRentalRespVO> list = buildRentalVOPageResult(rentalService.getStockPage(pageReqVO)).getList();
         // 导出 Excel
-        ExcelUtils.write(response, "产品库存.xls", "数据", ErpRentalRespVO.class, list);
+        ExcelUtils.write(response, "设备库存.xls", "数据", ErpRentalRespVO.class, list);
     }
 
     private PageResult<ErpRentalRespVO> buildRentalVOPageResult(PageResult<ErpRentalDO> pageResult) {
