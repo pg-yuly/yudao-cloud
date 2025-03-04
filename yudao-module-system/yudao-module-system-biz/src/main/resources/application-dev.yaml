@@ -93,6 +93,7 @@ spring:
 --- #################### 定时任务相关配置 ####################
 xxl:
   job:
+    enabled: false # 是否开启调度中心，默认为 true 开启
     admin:
       addresses: http://127.0.0.1:9090/xxl-job-admin # 调度中心部署跟地址
 
@@ -155,7 +156,7 @@ wx:
 
 # 芋道配置项，设置当前项目所有自定义的配置
 yudao:
-  demo: true # 开启演示模式
+  demo: false # 开启演示模式
 
 justauth:
   enabled: true
